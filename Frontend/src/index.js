@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
-// import * as jwt_decode from "jwt-decode";
 
 import { render } from "react-dom";
 import { Layout, Menu } from "antd";
@@ -16,13 +15,15 @@ import { Link, Outlet } from 'react-router-dom';
 import Home from "./routes/home";
 import AboutUs from "./routes/aboutUs";
 import MyDrive from './routes/myDrive';
-import Rovers from "./routes/rovers";
-import RoverDetails from "./routes/roverDetails";
-import Missions from "./routes/missions";
-import MissionDetails from "./routes/missionDetails";
-import Users from "./routes/users";
-import UserDetails from "./routes/userDetails";
+// import Rovers from "./routes/rovers";
+// import RoverDetails from "./routes/roverDetails";
+// import Missions from "./routes/missions";
+// import MissionDetails from "./routes/missionDetails";
+// import Users from "./routes/users";
+// import UserDetails from "./routes/userDetails";
 import Profile from "./routes/profile";
+import Users from "./routes/users";
+import AllInformation from "./routes/allInformation";
 import Login from "./routes/login";
 import Register from "./routes/register";
 import Logout from "./routes/logout";
@@ -32,9 +33,6 @@ import reportWebVitals from './reportWebVitals';
 import { useCookies, CookiesProvider } from "react-cookie";
 
 const { Header, Content, Footer, Sider } = Layout;
-
-// const jwt_decode = require('jwt-decode');
-
 
 const Router = () => {
   return (
@@ -54,6 +52,8 @@ const Router = () => {
                 {/* <Route path='/users' element={<Users />} /> */}
                 {/* <Route path='/userDetails/:userId' element={<UserDetails />} /> */}
                 <Route path='/profile' element={<Profile />} />
+                <Route path='/users' element={<Users />} />
+                <Route path='/allInformation' element={<AllInformation />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/logout' element={<Logout />} />
@@ -71,19 +71,8 @@ const Main = () => {
   const [loginStatus, setLoginStatus] = useState(false);
   const [adminStatus, setAdminStatus] = useState(false);
 
-  // const token = localStorage.getItem('token')
-
-  // const decoded = jwt_decode(token);
-
-  // useEffect(token, decoded)
-  // const navigate = useNavigate()
   useEffect(() => {
     const token = localStorage.getItem('token')
-    // const token = localStorage.getItem('token')
-
-    console.log(token)
-    // console.log(jwt_decode(token))
-    // const decoded = jwt_decode(token);
 
     if (token) {
       setLoginStatus(true)
@@ -95,9 +84,6 @@ const Main = () => {
     }
   }, [])
 
-  // const [cookies, setCookie] = useCookies();
-  // const access_Token = cookies.access_Token;
-  // if (access_Token) {
   if (loginStatus) {
     if (adminStatus) {
       return (
@@ -111,29 +97,11 @@ const Main = () => {
                 <Menu.Item key="1" icon={<HomeOutlined />}>
                   <Link to="/">Home</Link>
                 </Menu.Item>
-                <Menu.Item key="2" icon={<InfoCircleOutlined />}>
+                <Menu.Item key="2" icon={<UserOutlined />}>
                   <Link to="/users">Users</Link>
                 </Menu.Item>
                 <Menu.Item key="3" icon={<InfoCircleOutlined />}>
                   <Link to="/allInformation">All Information</Link>
-                </Menu.Item>
-                {/* <Menu.Item key="2" icon={<InfoCircleOutlined />}>
-                  <Link to="/aboutUs">About us</Link>
-                </Menu.Item> */}
-                {/* <Menu.Item key="3" icon={<FileOutlined />}>
-                  <Link to="/myDrive">My Drive</Link>
-                </Menu.Item> */}
-                {/* <Menu.Item key="3" icon={<RocketOutlined />}>
-                  <Link to="/rovers">Rovers</Link>
-                </Menu.Item>
-                <Menu.Item key="4" icon={<BarChartOutlined />}>
-                  <Link to="/missions">Missions</Link>
-                </Menu.Item>
-                <Menu.Item key="5" icon={<TeamOutlined />}>
-                  <Link to="/users">Users</Link>
-                </Menu.Item> */}
-                <Menu.Item key="4" icon={<UserOutlined />}>
-                  <Link to="/profile">Profile</Link>
                 </Menu.Item>
                 <Menu.Item key="5" icon={<LogoutOutlined />}>
                   <Link to="/logout">Logout</Link>
@@ -174,15 +142,6 @@ const Main = () => {
                 <Menu.Item key="3" icon={<FileOutlined />}>
                   <Link to="/myDrive">My Drive</Link>
                 </Menu.Item>
-                {/* <Menu.Item key="3" icon={<RocketOutlined />}>
-                  <Link to="/rovers">Rovers</Link>
-                </Menu.Item>
-                <Menu.Item key="4" icon={<BarChartOutlined />}>
-                  <Link to="/missions">Missions</Link>
-                </Menu.Item>
-                <Menu.Item key="5" icon={<TeamOutlined />}>
-                  <Link to="/users">Users</Link>
-                </Menu.Item> */}
                 <Menu.Item key="4" icon={<UserOutlined />}>
                   <Link to="/profile">Profile</Link>
                 </Menu.Item>

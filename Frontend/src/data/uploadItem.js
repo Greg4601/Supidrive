@@ -18,11 +18,12 @@ export default function UploadItem() {
         // handleSubmission()
     }
 
-    const handleSubmission = () => {
+    const handleSubmission = async () => {
         const formData = new FormData();
 
         formData.append('input_file', selectedFile);
-        uploadFile(formData)
+        await uploadFile(formData)
+        window.location.reload()
     }
 
     return (
