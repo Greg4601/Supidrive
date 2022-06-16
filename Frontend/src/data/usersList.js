@@ -1,172 +1,125 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Button, Input, Table, Skeleton } from 'antd';
-import { SearchOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from 'react'
+import moment, { relativeTimeRounding } from "moment";
+import { getAllUsers, deleteUser, downloadFile } from '../api/getAPI'
+import { SearchOutlined, DeleteFilled, EyeOutlined, EditFilled, DownloadOutlined } from '@ant-design/icons';
+import { Table, Input, Button } from 'antd'
 import { Link } from "react-router-dom";
 
-export default function UsersList() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [fetchedData, setFetchedData] = useState([]);
-  const [page, setPage] = useState(1);
-  var offset = (page * 10) - 10;
-  useEffect(() => {
-    const getData = async () => {
-      setIsLoading(true);
-      const data = await axios.get(
-        "http://localhost:5000/users/"
-      );
-      setFetchedData(data.data);
-      setIsLoading(false);
-    };
-    getData();
-  }, []);
 
+export default function MyDriveList() {
+  const [usersList, setUsersList] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    getAllUsers(setUsersList)
+  }, [setUsersList])
+
+  const onDeleteUser = (user) => {
+    deleteUser(user)
+    setUsersList(pre => {
+      return pre.filter(usersList => usersList._id !== user)
+    })
+  }
+
+  // const onEditNameItem = (item) => {
+  //   console.log('TODO:')
+  // }
+
+  // const onDownloadNameItem = (item) => {
+  //   // console.log(item)
+  //   downloadFile(item)
+  // }
   const columns = [
+
     {
-      title: 'Id',
-      dataIndex: "_id",
-      key: "key",
-      render: text => <Link to={"/userDetails/" + text}>{text}</Link>,
-      sorter: (a, b) => a._id.localeCompare(b._id),
-    },
-    {
-      title: 'Email',
-      dataIndex: "email",
-      key: "key",
-      sorter: (a, b) => a.email.localeCompare(b.email),
-      filterDropdown: ({
-        setSelectedKeys,
-        selectedKeys,
-        confirm,
-        clearFilters,
-      }) => {
+      title: 'Username',
+      dataIndex: 'name',
+      width: '50%',
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
         return (
-          <div>
+          <>
             <Input
               autoFocus
-              placeholder="Type text here"
-              value={selectedKeys[0]}
-              onChange={(e) => {
-                setSelectedKeys(e.target.value ? [e.target.value] : []);
-                confirm({ closeDropdown: false });
-              }}
-              onPressEnter={() => {
-                confirm();
-              }}
-              onBlur={() => {
-                confirm();
-              }}
-            ></Input>
-            <Button
-              onClick={() => {
-                confirm();
-              }}
-              type="primary"
-            >
-              Search
-            </Button>
-            <Button
-              onClick={() => {
-                clearFilters();
-              }}
-              type="danger"
-            >
-              Reset
-            </Button>
-          </div>
-        );
+              placeholder='Search by username'
+              value={selectedKeys}
+              onChange={(e) => { setSelectedKeys(e.target.value ? [e.target.value] : []); confirm({ closeDropdown: false }) }}
+              onPressEnter={() => confirm()}
+              onBlur={() => confirm()}
+            />
+            <Button onClick={() => confirm()} type='primary'>Search</Button>
+            <Button onClick={() => clearFilters()} type='danger'>Reset</Button>
+          </>
+        )
       },
-      filterIcon: () => {
-        return <SearchOutlined />;
-      },
-      onFilter: (value, record) => {
-        return record.email.toLowerCase().includes(value.toLowerCase());
-      },
-    },
-    {
-      title: 'Pseudo',
-      dataIndex: "pseudo",
-      key: "key",
-      sorter: (a, b) => a.pseudo.localeCompare(b.pseudo),
-      filterDropdown: ({
-        setSelectedKeys,
-        selectedKeys,
-        confirm,
-        clearFilters,
-      }) => {
-        return (
-          <div>
-            <Input
-              autoFocus
-              placeholder="Type text here"
-              value={selectedKeys[0]}
-              onChange={(e) => {
-                setSelectedKeys(e.target.value ? [e.target.value] : []);
-                confirm({ closeDropdown: false });
-              }}
-              onPressEnter={() => {
-                confirm();
-              }}
-              onBlur={() => {
-                confirm();
-              }}
-            ></Input>
-            <Button
-              onClick={() => {
-                confirm();
-              }}
-              type="primary"
-            >
-              Search
-            </Button>
-            <Button
-              onClick={() => {
-                clearFilters();
-              }}
-              type="danger"
-            >
-              Reset
-            </Button>
-          </div>
-        );
-      },
-      filterIcon: () => {
-        return <SearchOutlined />;
-      },
-      onFilter: (value, record) => {
-        return record.pseudo.toLowerCase().includes(value.toLowerCase());
-      },
+      filterIcon: () => <SearchOutlined />,
+      onFilter: (value, record) => record.name.toLowerCase().includes(value.toLowerCase()),
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: 'Password',
-      dataIndex: "password",
-      key: "key",
+      dataIndex: 'password',
+      width: '20%',
+      // sorter: (a, b) => new Date(b.date) - new Date(a.date),
+      // render: cts => <p>{moment(cts).format('MMMM do YYYY [at] HH:mm [UTC]')}</p>
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      width: '15%',
+      filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
+        return (
+          <>
+            <Input
+              autoFocus
+              placeholder='Search by email'
+              value={selectedKeys}
+              onChange={(e) => { setSelectedKeys(e.target.value ? [e.target.value] : []); confirm({ closeDropdown: false }) }}
+              onPressEnter={() => confirm()}
+              onBlur={() => confirm()}
+            />
+            <Button onClick={() => confirm()} type='primary'>Search</Button>
+            <Button onClick={() => clearFilters()} type='danger'>Reset</Button>
+          </>
+        )
+      },
+      filterIcon: () => <SearchOutlined />,
+      onFilter: (value, record) => record.email.toLowerCase().includes(value.toLowerCase()),
+      sorter: (a, b) => a.email.localeCompare(b.email),
     },
     {
       title: 'Is Admin?',
-      dataIndex: "isAdmin",
-      key: "key",
+      dataIndex: 'isAdmin',
+      width: '5%',
       render: text => text ? <p>True</p> : <p>False</p>,
+      // render: item => <DownloadOutlined onClick={(e) => onDownloadNameItem(item)} />
     },
-  ];
-
-  while (isLoading) {
-    return (
-      <Skeleton />
-    )
-  }
+    // {
+    //   title: 'Edit',
+    //   dataIndex: 'edit',
+    //   width: '5%',
+    //   render: item => <EditFilled onClick={(e) => onEditNameItem(item)} />
+    // },
+    {
+      title: 'View',
+      dataIndex: '_id',
+      width: '5%',
+      render: text => <Link to={"/userDetails/" + text}><EyeOutlined style={{ color: 'green' }} /></Link>,
+      // render: user => <EyeOutlined style={{ color: 'green' }} />
+      // render: user => <EyeOutlined style={{ color: 'green' }} onClick={(e) => onDeleteUser(user)} />
+    },
+    {
+      title: 'Delete',
+      dataIndex: '_id',
+      width: '5%',
+      render: user => <DeleteFilled style={{ color: 'red' }} onClick={(e) => onDeleteUser(user)} />
+    }
+  ]
   return (
-    <div>
-      <Table
-        columns={columns}
-        dataSource={fetchedData}
-        pagination={{
-          current: page,
-          pageSize: 10,
-          onChange: (page) => {
-            setPage(page);
-          }
-        }} />
-    </div>
-  );
+    <Table
+      loading={loading}
+      dataSource={usersList}
+      columns={columns}
+      rowKey='_id'
+    />
+  )
 }
