@@ -1,0 +1,32 @@
+.logo img {
+  height: 165px;
+  width: 165px;
+  background: rgba(255, 250, 250, 0.650);
+  margin: 16px;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+#menu {
+  margin-top: 15px;
+}
+
+.flex-container {
+  display: flex;
+  padding: 25px;
+  gap: 0px 50px;
+}
+
+.missions {
+  display: flex;
+  orientation: horizontal;
+  padding: 25px;
+  gap: 0px 50px;
+}
+
+.roverImage {
+  width: 200px;
+  height: 200px;
+}
