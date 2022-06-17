@@ -40,6 +40,30 @@ export const getAllUsers = async (setData) => {
     setData(await response.json())
 }
 
+export const getUser = async (id) => {
+    const response = await fetch(`http://localhost:8080/api/users/${id}`, {
+        method: 'GET',
+        headers: {
+            'authorization': "Bearer " + localStorage.getItem('token')
+        }
+    })
+    return response.json();
+}
+
+export const blockUser = async (id, isBlocked) => {
+    const response = await fetch(`http://localhost:8080/api/users/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': "Bearer " + localStorage.getItem('token')
+        },
+        body: JSON.stringify({
+            isBlocked,
+        })
+    })
+    return response
+}
+
 export const deleteUser = async (id) => {
     const response = await fetch(`http://localhost:8080/api/users/${id}`, {
         method: 'DELETE',

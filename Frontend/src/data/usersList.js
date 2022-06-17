@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import moment, { relativeTimeRounding } from "moment";
-import { getAllUsers, deleteUser, downloadFile, getUserFileCount } from '../api/getAPI'
+import { getUser, getAllUsers, blockUser, deleteUser, downloadFile, getUserFileCount } from '../api/getAPI'
 import { SearchOutlined, DeleteFilled, EyeOutlined, StopOutlined, CloseOutlined, CheckOutlined, EditFilled, DownloadOutlined } from '@ant-design/icons';
 import { Table, Input, Button } from 'antd'
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 export default function MyDriveList() {
   const [usersList, setUsersList] = useState([])
+  // const [blockedList, setBlockedList] = useState()
   const [userFileCount, setUserFileCount] = useState()
   const [loading, setLoading] = useState(false)
 
@@ -22,6 +23,28 @@ export default function MyDriveList() {
       return pre.filter(usersList => usersList._id !== user)
     })
   }
+
+  const userCheckBlocked = async (item) => {
+    const user = await getUser(item)
+    // setBlockedList(user.isBlocked)
+    return user.isBlocked
+  }
+  const onBlocked = async (item, e) => {
+    const isBlocked = await userCheckBlocked(item)
+    console.log(isBlocked)
+    await blockUser(item, !isBlocked)
+    window.location.reload()
+
+    // if (!isBlocked) {
+    //   e.target.innerHTML = 'unBlock'
+    //   e.target.style.color = 'blue'
+    // } else {
+    //   e.target.innerHTML = 'Block'
+    //   e.target.style.color = 'red'
+    // }
+  }
+
+  console.log(usersList)
 
   // const onEditNameItem = (item) => {
   //   console.log('TODO:')
@@ -126,12 +149,25 @@ export default function MyDriveList() {
       // render: user => <EyeOutlined style={{ color: 'green' }} onClick={(e) => onDeleteUser(user)} />
     },
     {
-      title: 'Is Block?',
+      title: 'Is Blocked?',
+      dataIndex: 'isBlocked',
+      width: '5%',
+      // render: item => userCheckBlocked(item) ? : <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item, e)}>Block</span>
+      render: item => item ? <CheckOutlined style={{ color: 'green' }} /> : <CloseOutlined style={{ color: 'red' }} />,
+      // render: item => <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item, e)}>{item}</span>
+      // render: item => userCheckBlocked(item) ? <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item)}>True</span> : <span style={{ color: 'blue', cursor: 'pointer' }} onClick={(e) => onBlocked(item)}>False</span>
+      // render: text => <StopOutlined style={{ color: 'red' }} onClick={(e) => onDeleteUser(text)} />
+    },
+    {
+      title: 'Block / unBlock',
       dataIndex: '_id',
       width: '5%',
-      render: text => <StopOutlined style={{ color: 'red' }} onClick={(e) => onDeleteUser(text)} />
-      // render: user => <EyeOutlined style={{ color: 'green' }} />
-      // render: user => <EyeOutlined style={{ color: 'green' }} onClick={(e) => onDeleteUser(user)} />
+      // render: item => userCheckBlocked(item) ? : <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item, e)}>Block</span>
+      render: item => <button style={{ color: 'green' }} onClick={(e) => onBlocked(item, e)} >Click</button>
+      // render: item => item ? <CheckOutlined style={{ color: 'green' }} onClick={(e) => onBlocked(usersList._id, e)} /> : <CloseOutlined style={{ color: 'red' }} onClick={(e) => onBlocked(usersList._id, e)} />,
+      // render: item => <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item, e)}>{item}</span>
+      // render: item => userCheckBlocked(item) ? <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item)}>True</span> : <span style={{ color: 'blue', cursor: 'pointer' }} onClick={(e) => onBlocked(item)}>False</span>
+      // render: text => <StopOutlined style={{ color: 'red' }} onClick={(e) => onDeleteUser(text)} />
     },
     {
       title: 'Delete',

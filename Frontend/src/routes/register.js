@@ -61,7 +61,8 @@ export default function Register() {
                 name,
                 email,
                 password,
-                isAdmin: "false"
+                isAdmin: "false",
+                isBlocked: "false"
             })
         })
 

@@ -27,11 +27,13 @@ route.post("/login", async (req, res) => {
     }
     const dbpassword = user.password;
 
+    const isBlocked = user.isBlocked;
+
     bcrypt.compare(password, dbpassword, (err, match) => {
       if (err) {
         console.log(err);
       }
-      if (match) {
+      if (match && !isBlocked) {
         const accessToken = generateAccessToken(user);
         const refreshToken = generateRefreshToken(user);
         res.send({

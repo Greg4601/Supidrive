@@ -20,6 +20,10 @@ const Userschema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  isBlocked: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Userdb = mongoose.model("userdb", Userschema);

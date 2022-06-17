@@ -44,6 +44,29 @@ exports.find = (req, res) => {
     });
 };
 
+// retrieve user by id
+exports.findUserById = async (req, res) => {
+  const id = req.params.id;
+  const userInDb = await Userdb.findById(id);
+
+  Userdb.findOne({ _id: id })
+    .then((user) => {
+      if (!user) {
+        res
+          .status(404)
+          .send({ message: "Cannot get user, Id may be wrong" });
+      } else {
+        res.send(userInDb);
+      }
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .send({ message: "Internal error, could not get user. " + err });
+    });
+}
+
+
 // Update user by user id
 
 exports.update = async (req, res) => {
