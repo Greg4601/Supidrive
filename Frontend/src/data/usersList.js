@@ -153,7 +153,9 @@ export default function MyDriveList() {
       dataIndex: 'isBlocked',
       width: '5%',
       // render: item => userCheckBlocked(item) ? : <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item, e)}>Block</span>
-      render: item => item ? <CheckOutlined style={{ color: 'green' }} /> : <CloseOutlined style={{ color: 'red' }} />,
+      // render: item => item ? <CheckOutlined style={{ color: 'green' }} /> : <CloseOutlined style={{ color: 'red' }} />,
+      render: item => item ? <p style={{ color: 'red' }}>YES</p> : <p style={{ color: 'green' }}>NO</p>,
+
       // render: item => <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item, e)}>{item}</span>
       // render: item => userCheckBlocked(item) ? <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item)}>True</span> : <span style={{ color: 'blue', cursor: 'pointer' }} onClick={(e) => onBlocked(item)}>False</span>
       // render: text => <StopOutlined style={{ color: 'red' }} onClick={(e) => onDeleteUser(text)} />
@@ -163,7 +165,7 @@ export default function MyDriveList() {
       dataIndex: '_id',
       width: '5%',
       // render: item => userCheckBlocked(item) ? : <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item, e)}>Block</span>
-      render: item => <button style={{ color: 'green' }} onClick={(e) => onBlocked(item, e)} >Click</button>
+      render: item => <button style={{ color: 'blue' }} onClick={(e) => onBlocked(item, e)} >Click</button>
       // render: item => item ? <CheckOutlined style={{ color: 'green' }} onClick={(e) => onBlocked(usersList._id, e)} /> : <CloseOutlined style={{ color: 'red' }} onClick={(e) => onBlocked(usersList._id, e)} />,
       // render: item => <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item, e)}>{item}</span>
       // render: item => userCheckBlocked(item) ? <span style={{ color: 'red', cursor: 'pointer' }} onClick={(e) => onBlocked(item)}>True</span> : <span style={{ color: 'blue', cursor: 'pointer' }} onClick={(e) => onBlocked(item)}>False</span>

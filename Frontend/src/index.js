@@ -105,6 +105,9 @@ const Main = () => {
                 <Menu.Item key="3" icon={<InfoCircleOutlined />}>
                   <Link to="/allInformation">All Information</Link>
                 </Menu.Item>
+                <Menu.Item key="4" icon={<UserOutlined />}>
+                  <Link to="/profile">Profil</Link>
+                </Menu.Item>
                 <Menu.Item key="5" icon={<LogoutOutlined />}>
                   <Link to="/logout">Logout</Link>
                 </Menu.Item>
