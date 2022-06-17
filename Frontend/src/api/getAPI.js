@@ -1,10 +1,12 @@
 export const downloadFile = async (id) => {
+    // console.log("response")
     const response = await fetch(`http://localhost:8080/api/download/${id}`, {
         method: 'GET',
         headers: {
             'authorization': "Bearer " + localStorage.getItem('token')
         }
     })
+    // console.log(response)
     return response
 }
 

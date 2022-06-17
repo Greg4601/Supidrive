@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { Button, Checkbox, Form, Input } from 'antd';
 import { loginFetch } from '../api/getAPI';
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [name, setName] = useState('');
@@ -79,6 +79,9 @@ export default function Login() {
           }}
         >
           <Checkbox>Remember me</Checkbox>
+          <a className="login-form-forgot" href="" style={{ marginLeft: 50 }}>
+            Forgot password?
+          </a>
         </Form.Item>
 
         <Form.Item
@@ -87,11 +90,11 @@ export default function Login() {
             span: 8,
           }}
         >
-          <Button type="primary" htmlType="submit">
-            Submit
+          <Button type="primary" htmlType="submit" style={{ marginRight: 50 }}>
+            Login
           </Button>
         </Form.Item>
       </Form>
-    </div>
+    </div >
   )
 }

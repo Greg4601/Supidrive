@@ -78,11 +78,14 @@ exports.downloadFileById = (req, res) => {
   }
   try {
     console.log("TRY CATCH")
+    console.log(req.params.id)
     var readstream = gridfsBucket.openDownloadStream(ObjectId(req.params.id));
+    // console.log(readstream)
     readstream.on("error", (err) => {
       // report stream error
       console.log(err);
     });
+    console.log(readstream.pipe(res))
     readstream.pipe(res);
   } catch (err) {
     return res.status(500).send({ message: err.message });

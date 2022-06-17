@@ -23,6 +23,7 @@ import MyDrive from './routes/myDrive';
 // import UserDetails from "./routes/userDetails";
 import Profile from "./routes/profile";
 import Users from "./routes/users";
+import UserDetails from "./routes/userDetails";
 import AllInformation from "./routes/allInformation";
 import Login from "./routes/login";
 import Register from "./routes/register";
@@ -53,6 +54,7 @@ const Router = () => {
                 {/* <Route path='/userDetails/:userId' element={<UserDetails />} /> */}
                 <Route path='/profile' element={<Profile />} />
                 <Route path='/users' element={<Users />} />
+                <Route path='/userDetails' element={<UserDetails />} />
                 <Route path='/allInformation' element={<AllInformation />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
@@ -143,7 +145,7 @@ const Main = () => {
                   <Link to="/myDrive">My Drive</Link>
                 </Menu.Item>
                 <Menu.Item key="4" icon={<UserOutlined />}>
-                  <Link to="/profile">Profile</Link>
+                  <Link to="/profile">Profil</Link>
                 </Menu.Item>
                 <Menu.Item key="5" icon={<LogoutOutlined />}>
                   <Link to="/logout">Logout</Link>

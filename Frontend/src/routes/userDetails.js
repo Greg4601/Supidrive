@@ -3,44 +3,21 @@ import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import MyDriveList from "../data/myDriveList";
+
+
 import { Skeleton } from 'antd';
 
 export default function UserDetails() {
     const { userId } = useParams()
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [fetchedData, setFetchedData] = useState([]);
-    useEffect(() => {
-        const getData = async () => {
-            setIsLoading(true);
-            const data = await axios.get(
-                "http://localhost:5000/users/" + userId
-            );
-            setFetchedData(data.data);
-            setIsLoading(false);
-        };
-        getData();
-    }, []);
-
-    var item = fetchedData;
-
-    while (isLoading) {
-        return (
-            <div>
-                <h1 style={{ fontWeight: 900 }}>More info about user id :</h1>
-                <Skeleton />
-            </div>
-        )
-    }
-
     return (
         <div>
-            <h1 style={{ fontWeight: 900 }}>More info about user id :</h1>
-            <p><b>Id : </b>{item._id}</p>
-            <p><b>Email : </b>{item.email}</p>
-            <p><b>Pseudo : </b>{item.pseudo}</p>
-            <p><b>Password : </b>{item.password}</p>
-            <p><b>Is Admin? : </b>{item.isAdmin ? "True" : "False"}</p>
+            <h1 style={{ fontWeight: 900 }}>My Drive :</h1>
+            {/* <UploadItem /> */}
+            {/* <p>Cette page permet d'afficher une liste de tous ses fichiers.</p> */}
+            {/* <p>Vous permettre de trier les rovers par id, nom, date de lancement et de construction, constructeur du rover, ainsi que de voir l'image.</p> */}
+            <MyDriveList />
         </div>
     );
 }

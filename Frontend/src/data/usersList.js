@@ -55,13 +55,13 @@ export default function MyDriveList() {
       onFilter: (value, record) => record.name.toLowerCase().includes(value.toLowerCase()),
       sorter: (a, b) => a.name.localeCompare(b.name),
     },
-    {
-      title: 'Password',
-      dataIndex: 'password',
-      width: '20%',
-      // sorter: (a, b) => new Date(b.date) - new Date(a.date),
-      // render: cts => <p>{moment(cts).format('MMMM do YYYY [at] HH:mm [UTC]')}</p>
-    },
+    // {
+    //   title: 'Password',
+    //   dataIndex: 'password',
+    //   width: '20%',
+    //   // sorter: (a, b) => new Date(b.date) - new Date(a.date),
+    //   // render: cts => <p>{moment(cts).format('MMMM do YYYY [at] HH:mm [UTC]')}</p>
+    // },
     {
       title: 'Email',
       dataIndex: 'email',

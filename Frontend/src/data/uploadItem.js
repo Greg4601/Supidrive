@@ -28,6 +28,8 @@ export default function UploadItem() {
 
     return (
         // <input type="file" name='file' className='UploadFile' icon={<UploadOutlined />} />
+
+
         <div className='upload-item-style'>
             <label>Importer un fichier:
                 <input type="file" name='upload-input' id="input_file" onChange={changeHandler} /></label>
