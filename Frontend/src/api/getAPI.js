@@ -20,6 +20,16 @@ export const getFiles = async (setData) => {
     setData(await response.json())
 }
 
+export const getUserFileCount = async (setData) => {
+    const response = await fetch(`http://localhost:8080/api/count-file`, {
+        method: 'GET',
+        headers: {
+            'authorization': "Bearer " + localStorage.getItem('token')
+        }
+    })
+    setData(await response.json())
+}
+
 export const getAllUsers = async (setData) => {
     const response = await fetch(`http://localhost:8080/api/users`, {
         method: 'GET',

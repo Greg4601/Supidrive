@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import moment, { relativeTimeRounding } from "moment";
-import { getAllUsers, deleteUser, downloadFile } from '../api/getAPI'
-import { SearchOutlined, DeleteFilled, EyeOutlined, EditFilled, DownloadOutlined } from '@ant-design/icons';
+import { getAllUsers, deleteUser, downloadFile, getUserFileCount } from '../api/getAPI'
+import { SearchOutlined, DeleteFilled, EyeOutlined, StopOutlined, CloseOutlined, CheckOutlined, EditFilled, DownloadOutlined } from '@ant-design/icons';
 import { Table, Input, Button } from 'antd'
 import { Link } from "react-router-dom";
 
 
 export default function MyDriveList() {
   const [usersList, setUsersList] = useState([])
+  const [userFileCount, setUserFileCount] = useState()
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     getAllUsers(setUsersList)
+    // getUserFileCount()
   }, [setUsersList])
 
   const onDeleteUser = (user) => {
@@ -87,10 +89,26 @@ export default function MyDriveList() {
       sorter: (a, b) => a.email.localeCompare(b.email),
     },
     {
+      title: 'Number of Files',
+      dataIndex: '_id',
+      // width: '5%',
+      render: text => "TEST",
+      // render: text => text ? <CheckOutlined style={{ color: 'green' }} /> : <CloseOutlined style={{ color: 'red' }} />,
+      // render: item => <DownloadOutlined onClick={(e) => onDownloadNameItem(item)} />
+    },
+    {
+      title: 'Storage',
+      dataIndex: '_id',
+      // width: '5%',
+      render: text => "TEST",
+      // render: text => text ? <CheckOutlined style={{ color: 'green' }} /> : <CloseOutlined style={{ color: 'red' }} />,
+      // render: item => <DownloadOutlined onClick={(e) => onDownloadNameItem(item)} />
+    },
+    {
       title: 'Is Admin?',
       dataIndex: 'isAdmin',
       width: '5%',
-      render: text => text ? <p>True</p> : <p>False</p>,
+      render: text => text ? <CheckOutlined style={{ color: 'green' }} /> : <CloseOutlined style={{ color: 'red' }} />,
       // render: item => <DownloadOutlined onClick={(e) => onDownloadNameItem(item)} />
     },
     // {
@@ -104,6 +122,14 @@ export default function MyDriveList() {
       dataIndex: '_id',
       width: '5%',
       render: text => <Link to={"/userDetails/" + text}><EyeOutlined style={{ color: 'green' }} /></Link>,
+      // render: user => <EyeOutlined style={{ color: 'green' }} />
+      // render: user => <EyeOutlined style={{ color: 'green' }} onClick={(e) => onDeleteUser(user)} />
+    },
+    {
+      title: 'Is Block?',
+      dataIndex: '_id',
+      width: '5%',
+      render: text => <StopOutlined style={{ color: 'red' }} onClick={(e) => onDeleteUser(text)} />
       // render: user => <EyeOutlined style={{ color: 'green' }} />
       // render: user => <EyeOutlined style={{ color: 'green' }} onClick={(e) => onDeleteUser(user)} />
     },

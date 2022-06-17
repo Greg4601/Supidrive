@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import moment, { relativeTimeRounding } from "moment";
 import { getFiles, deleteFile, downloadFile } from '../api/getAPI'
-import { SearchOutlined, DeleteFilled, EditFilled, DownloadOutlined } from '@ant-design/icons';
+import { SearchOutlined, DeleteFilled, EyeOutlined, EditFilled, DownloadOutlined } from '@ant-design/icons';
 import { Table, Input, Button } from 'antd'
 
 export default function MyDriveList() {
@@ -71,6 +71,12 @@ export default function MyDriveList() {
             dataIndex: '_id',
             width: '5%',
             render: item => <DownloadOutlined onClick={(e) => onDownloadNameItem(item)} />
+        },
+        {
+            title: 'View',
+            dataIndex: '_id',
+            width: '5%',
+            render: text => <EyeOutlined style={{ color: 'green' }} onClick={(e) => onEditNameItem(text)} />
         },
         {
             title: 'Edit',
