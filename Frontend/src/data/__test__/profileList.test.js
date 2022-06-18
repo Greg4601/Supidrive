@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import MissionsList from "./../missionsList";
+import ProfileList from "./../profileList";
 
 it("renders without crashing", () => {
     const div = document.createElement("div");
-    ReactDOM.render(<MissionsList />, div);
+    ReactDOM.render(<ProfileList />, div);
 })

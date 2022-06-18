@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 
 import { render } from "react-dom";
 import { Layout, Menu } from "antd";
-import { HomeOutlined, InfoCircleOutlined, FileOutlined, BarChartOutlined, TeamOutlined, UserOutlined, LoginOutlined, UsergroupAddOutlined, LogoutOutlined } from "@ant-design/icons";
+import { HomeOutlined, InfoCircleOutlined, FileOutlined, UserOutlined, LoginOutlined, UsergroupAddOutlined, LogoutOutlined } from "@ant-design/icons";
 import "./index.css";
 import "antd/dist/antd.css";
 
@@ -15,12 +15,6 @@ import { Link, Outlet } from 'react-router-dom';
 import Home from "./routes/home";
 import AboutUs from "./routes/aboutUs";
 import MyDrive from './routes/myDrive';
-// import Rovers from "./routes/rovers";
-// import RoverDetails from "./routes/roverDetails";
-// import Missions from "./routes/missions";
-// import MissionDetails from "./routes/missionDetails";
-// import Users from "./routes/users";
-// import UserDetails from "./routes/userDetails";
 import Profile from "./routes/profile";
 import Users from "./routes/users";
 import UserDetails from "./routes/userDetails";
@@ -46,12 +40,6 @@ const Router = () => {
                                 <Route path='/' element={<Home />} />
                                 <Route path='/aboutUs' element={<AboutUs />} />
                                 <Route path='/myDrive' element={<MyDrive />} />
-                                {/* <Route path='/rovers' element={<Rovers />} /> */}
-                                {/* <Route path='/roverDetails/:roverId' element={<RoverDetails />} /> */}
-                                {/* <Route path='/missions' element={<Missions />} /> */}
-                                {/* <Route path='/missionDetails/:missionId' element={<MissionDetails />} /> */}
-                                {/* <Route path='/users' element={<Users />} /> */}
-                                {/* <Route path='/userDetails/:userId' element={<UserDetails />} /> */}
                                 <Route path='/profile' element={<Profile />} />
                                 <Route path='/users' element={<Users />} />
                                 <Route path='/userDetails' element={<UserDetails />} />
@@ -82,7 +70,6 @@ const Main = () => {
             if (decoded.isAdmin) {
                 setAdminStatus(true)
             }
-            // navigate('/my-drive')
         }
     }, [])
 

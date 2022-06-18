@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { Button, Checkbox, Form, Input } from 'antd';
 import { loginFetch } from '../api/getAPI';
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [name, setName] = useState('');

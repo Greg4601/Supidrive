@@ -66,14 +66,6 @@ export default function Register() {
             })
         })
 
-        // if(response.status === 200) {
-        //     const token = await response.json()
-        //     localStorage.setItem('token', token.accessToken)
-        //     setLoginStatus(true)
-        //     window.location.href = '/'
-        // } else {
-        //     setLoginStatus(false)
-        // }
         const data = await response.json()
 
         console.log(data)

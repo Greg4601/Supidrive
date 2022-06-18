@@ -1,12 +1,10 @@
 export const downloadFile = async (id) => {
-    // console.log("response")
     const response = await fetch(`http://localhost:8080/api/download/${id}`, {
         method: 'GET',
         headers: {
             'authorization': "Bearer " + localStorage.getItem('token')
         }
     })
-    // console.log(response)
     return response
 }
 
@@ -80,7 +78,6 @@ export const loginFetch = async (name, email, password) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            // 'x-access-token': location.Storage('')
         },
         body: JSON.stringify({
             name,

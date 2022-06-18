@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import moment, { relativeTimeRounding } from "moment";
+import moment from "moment";
 import { getFiles, deleteFile, downloadFile } from '../api/getAPI'
 import { SearchOutlined, DeleteFilled, EyeOutlined, EditFilled, DownloadOutlined } from '@ant-design/icons';
 import { Table, Input, Button } from 'antd'
@@ -24,7 +24,6 @@ export default function MyDriveList() {
     }
 
     const onDownloadNameItem = (item) => {
-        // console.log(item)
         downloadFile(item)
     }
     const columns = [
