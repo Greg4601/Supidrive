@@ -30,3 +30,38 @@
   width: 200px;
   height: 200px;
 }
+
+/* div .logo {
+  width: 10px;
+  height: 10px;
+}
+
+/* .logo img {
+  height: 30px;
+  width: 30px;
+  background: rgba(255, 250, 250, 0.650);
+  margin: 16px;
+}
+
+#components-layout-demo-fixed {
+  float: left;
+  width: 120px;
+  height: 31px;
+  margin: 16px 24px 16px 0;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+}
+
+menu {
+  display: flex;
+  flex-direction: row;
+  /* width: 500px; */
+/* } */

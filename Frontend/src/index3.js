@@ -86,18 +86,30 @@ const Main = () => {
         }
     }, [])
 
+
     if (loginStatus) {
         if (adminStatus) {
             return (
                 <div>
                     <Layout style={{ minHeight: "100vh" }}>
-                        <Sider>
-                            <div className="logo">
-                                <img src={logo} />
-                            </div>
-                            <Menu id="menu" theme="dark" defaultSelectedKeys={[""]} mode="inline">
-                                <Menu.Item key="1" icon={<HomeOutlined />}>
-                                    <Link to="/">Home</Link>
+                        <Header
+                            style={{
+                                position: 'fixed',
+                                zIndex: 1,
+                                width: '100%',
+                            }}
+                        >
+                            {/* <div className="logo">
+                <Link to="/"><img src={logo} /></Link>
+
+              </div> */}
+                            <Menu id="menu" theme="dark" defaultSelectedKeys={[""]} mode="horizontal">
+                                {/* <Menu.Item key="1" icon={<HomeOutlined />}>
+                  <Link to="/">Home</Link>
+                </Menu.Item> */}
+                                <Menu.Item className="logo">
+                                    <Link to="/"><img src={logo} /></Link>
+
                                 </Menu.Item>
                                 <Menu.Item key="2" icon={<UserOutlined />}>
                                     <Link to="/users">Users</Link>
@@ -112,22 +124,29 @@ const Main = () => {
                                     <Link to="/logout">Logout</Link>
                                 </Menu.Item>
                             </Menu>
-                        </Sider>
-                        <Layout className="site-layout">
-                            <Header className="site-layout-background" style={{ padding: 0, textAlign: "center" }}>
-                                <h1 style={{ fontWeight: 900 }}>SupIdrive</h1>
-                            </Header>
-                            <Content style={{ margin: "0 16px" }}>
-                                <div className="site-layout-background" style={{ padding: 24, minHeight: "75vh", margin: "16px 0" }}>
-                                    <Outlet />
-                                </div>
-                            </Content>
-                            <Footer style={{ textAlign: "center" }}>
-                                ©2022 - 3PROJ - SUPIDRIVE - SUPINFO PROJECT
-                            </Footer>
-                        </Layout>
+                        </Header>
+                        <Content
+                            className="site-layout"
+                            style={{
+                                padding: '0 50px',
+                                marginTop: 64,
+                            }}
+                        >
+                            <div
+                                className="site-layout-background"
+                                style={{
+                                    padding: 24,
+                                    minHeight: 380,
+                                }}
+                            >
+                                <Outlet />
+                            </div>
+                        </Content>
+                        <Footer style={{ textAlign: "center" }}>
+                            ©2022 - 3PROJ - SUPIDRIVE - SUPINFO PROJECT
+                        </Footer>
                     </Layout>
-                </div>
+                </div >
             );
         } else {
             return (
