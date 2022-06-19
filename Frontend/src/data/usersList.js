@@ -109,16 +109,16 @@ export default function UsersList() {
       onFilter: (value, record) => record.email.toLowerCase().includes(value.toLowerCase()),
       sorter: (a, b) => a.email.localeCompare(b.email),
     },
-    {
-      title: 'Number of Files',
-      dataIndex: '_id',
-      render: text => "TEST",
-    },
-    {
-      title: 'Storage',
-      dataIndex: '_id',
-      render: text => "TEST",
-    },
+    // {
+    //   title: 'Number of Files',
+    //   dataIndex: '_id',
+    //   render: text => "TEST",
+    // },
+    // {
+    //   title: 'Storage',
+    //   dataIndex: '_id',
+    //   render: text => "TEST",
+    // },
     {
       title: 'Is Admin?',
       dataIndex: 'isAdmin',
@@ -129,7 +129,7 @@ export default function UsersList() {
       title: 'Impersonate',
       dataIndex: '_id',
       width: '5%',
-      render: item => <EyeOutlined onClick={(e) => onImpersonate(item)} />
+      render: item => <EyeOutlined style={{ color: 'blue' }} onClick={(e) => onImpersonate(item)} />
       // render: text => <Link to={"/userDetails/" + text}><EyeOutlined style={{ color: 'green' }} /></Link>,
     },
     {

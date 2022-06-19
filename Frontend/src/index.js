@@ -17,7 +17,6 @@ import AboutUs from "./routes/aboutUs";
 import MyDrive from './routes/myDrive';
 import Profile from "./routes/profile";
 import Users from "./routes/users";
-import AllInformation from "./routes/allInformation";
 import Login from "./routes/login";
 import Register from "./routes/register";
 import Logout from "./routes/logout";
@@ -43,7 +42,6 @@ const Router = () => {
                                 <Route path='/myDrive' element={<MyDrive />} />
                                 <Route path='/profile' element={<Profile />} />
                                 <Route path='/users' element={<Users />} />
-                                <Route path='/allInformation' element={<AllInformation />} />
                                 <Route path='/login' element={<Login />} />
                                 <Route path='/register' element={<Register />} />
                                 <Route path='/logout' element={<Logout />} />
@@ -97,13 +95,10 @@ const Main = () => {
                                     <Menu.Item key="2" icon={<UserOutlined />}>
                                         <Link to="/users">Users</Link>
                                     </Menu.Item>
-                                    <Menu.Item key="3" icon={<InfoCircleOutlined />}>
-                                        <Link to="/allInformation">All Information</Link>
-                                    </Menu.Item>
-                                    <Menu.Item key="4" icon={<UserOutlined />}>
+                                    <Menu.Item key="3" icon={<UserOutlined />}>
                                         <Link to="/profile">Profil</Link>
                                     </Menu.Item>
-                                    <Menu.Item key="5" icon={<LogoutOutlined />}>
+                                    <Menu.Item key="4" icon={<LogoutOutlined />}>
                                         <Link to="/logout">Logout</Link>
                                     </Menu.Item>
                                 </Menu>
