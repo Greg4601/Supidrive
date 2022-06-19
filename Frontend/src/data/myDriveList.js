@@ -31,7 +31,7 @@ export default function MyDriveList() {
         {
             title: 'Name',
             dataIndex: 'filename',
-            width: '50%',
+            width: '25%',
             filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
                 return (
                     <>
@@ -55,26 +55,26 @@ export default function MyDriveList() {
         {
             title: 'Date d\'upload',
             dataIndex: 'uploadDate',
-            width: '20%',
+            width: '25%',
             sorter: (a, b) => new Date(b.date) - new Date(a.date),
             render: cts => <p>{moment(cts).format('MMMM DD YYYY [at] HH:mm [UTC]')}</p>
         },
         {
             title: 'Length',
             dataIndex: 'length',
-            width: '15%',
+            width: '20%',
             sorter: (a, b) => parseInt(a, 10) - parseInt(b, 10),
         },
         {
             title: 'Download',
             dataIndex: '_id',
-            width: '5%',
+            width: '10%',
             render: item => <DownloadOutlined onClick={(e) => onDownloadNameItem(item)} />
         },
         {
             title: 'Preview',
             dataIndex: '_id',
-            width: '5%',
+            width: '10%',
             render: text => <EyeOutlined style={{ color: 'green' }} onClick={(e) => console.log("PREVIEW")} />
         },
         // {
@@ -86,7 +86,7 @@ export default function MyDriveList() {
         {
             title: 'Delete',
             dataIndex: '_id',
-            width: '5%',
+            width: '10%',
             render: item => <DeleteFilled style={{ color: 'red' }} onClick={(e) => onDeleteItem(item)} />
         }
     ]

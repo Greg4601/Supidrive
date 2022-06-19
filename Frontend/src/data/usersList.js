@@ -44,7 +44,7 @@ export default function UsersList() {
     // console.log(user)
     const Admintoken = localStorage.getItem('token')
     localStorage.setItem('adminToken', Admintoken)
-    const response = await loginFetch(user.name, user.email, "dd")
+    const response = await loginFetch(user.name, user.email, "supinfo")
     if (response.status === 200) {
       const token = await response.json()
       localStorage.setItem('token', token.accessToken)
@@ -64,7 +64,7 @@ export default function UsersList() {
     {
       title: 'Username',
       dataIndex: 'name',
-      width: '50%',
+      width: '25%',
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
         return (
           <>
@@ -88,7 +88,7 @@ export default function UsersList() {
     {
       title: 'Email',
       dataIndex: 'email',
-      width: '15%',
+      width: '25%',
       filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => {
         return (
           <>
@@ -122,32 +122,32 @@ export default function UsersList() {
     {
       title: 'Is Admin?',
       dataIndex: 'isAdmin',
-      width: '5%',
+      width: '10%',
       render: text => text ? <CheckOutlined style={{ color: 'green' }} /> : <CloseOutlined style={{ color: 'red' }} />,
     },
     {
       title: 'Impersonate',
       dataIndex: '_id',
-      width: '5%',
+      width: '10%',
       render: item => <EyeOutlined style={{ color: 'blue' }} onClick={(e) => onImpersonate(item)} />
       // render: text => <Link to={"/userDetails/" + text}><EyeOutlined style={{ color: 'green' }} /></Link>,
     },
     {
       title: 'Is Blocked?',
       dataIndex: 'isBlocked',
-      width: '5%',
+      width: '10%',
       render: item => item ? <p style={{ color: 'red' }}>YES</p> : <p style={{ color: 'green' }}>NO</p>,
     },
     {
       title: 'Block / unBlock',
       dataIndex: '_id',
-      width: '5%',
+      width: '10%',
       render: item => <button style={{ color: 'blue' }} onClick={(e) => onBlocked(item, e)} >Click</button>
     },
     {
       title: 'Delete',
       dataIndex: '_id',
-      width: '5%',
+      width: '10%',
       render: user => <DeleteFilled style={{ color: 'red' }} onClick={(e) => onDeleteUser(user)} />
     }
   ]
