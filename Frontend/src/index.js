@@ -17,13 +17,14 @@ import AboutUs from "./routes/aboutUs";
 import MyDrive from './routes/myDrive';
 import Profile from "./routes/profile";
 import Users from "./routes/users";
-import UserDetails from "./routes/userDetails";
 import AllInformation from "./routes/allInformation";
 import Login from "./routes/login";
 import Register from "./routes/register";
 import Logout from "./routes/logout";
 import NotFound from './routes/notFound';
 import reportWebVitals from './reportWebVitals';
+
+import { UserContext } from './contexts/AuthContext';
 
 import { useCookies, CookiesProvider } from "react-cookie";
 
@@ -42,7 +43,6 @@ const Router = () => {
                                 <Route path='/myDrive' element={<MyDrive />} />
                                 <Route path='/profile' element={<Profile />} />
                                 <Route path='/users' element={<Users />} />
-                                <Route path='/userDetails' element={<UserDetails />} />
                                 <Route path='/allInformation' element={<AllInformation />} />
                                 <Route path='/login' element={<Login />} />
                                 <Route path='/register' element={<Register />} />
@@ -58,6 +58,12 @@ const Router = () => {
 };
 
 const Main = () => {
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [isLogged, setIsLogged] = useState(false);
+    const [isBlocked, setIsBlocked] = useState(false);
+    const [isImpressionate, setIsImpressionate] = useState(false);
+
+
     const [loginStatus, setLoginStatus] = useState(false);
     const [adminStatus, setAdminStatus] = useState(false);
 
@@ -77,125 +83,134 @@ const Main = () => {
         if (adminStatus) {
             return (
                 <div>
-                    <Layout style={{ minHeight: "100vh" }}>
-                        <Sider>
-                            <div className="logo">
-                                <img src={logo} />
-                            </div>
-                            <Menu id="menu" theme="dark" defaultSelectedKeys={[""]} mode="inline">
-                                <Menu.Item key="1" icon={<HomeOutlined />}>
-                                    <Link to="/">Home</Link>
-                                </Menu.Item>
-                                <Menu.Item key="2" icon={<UserOutlined />}>
-                                    <Link to="/users">Users</Link>
-                                </Menu.Item>
-                                <Menu.Item key="3" icon={<InfoCircleOutlined />}>
-                                    <Link to="/allInformation">All Information</Link>
-                                </Menu.Item>
-                                <Menu.Item key="4" icon={<UserOutlined />}>
-                                    <Link to="/profile">Profil</Link>
-                                </Menu.Item>
-                                <Menu.Item key="5" icon={<LogoutOutlined />}>
-                                    <Link to="/logout">Logout</Link>
-                                </Menu.Item>
-                            </Menu>
-                        </Sider>
-                        <Layout className="site-layout">
-                            <Header className="site-layout-background" style={{ padding: 0, textAlign: "center" }}>
-                                <h1 style={{ fontWeight: 900 }}>SupIdrive</h1>
-                            </Header>
-                            <Content style={{ margin: "0 16px" }}>
-                                <div className="site-layout-background" style={{ padding: 24, minHeight: "75vh", margin: "16px 0" }}>
-                                    <Outlet />
+                    <UserContext.Provider value={{ isAdmin, setIsAdmin, isLogged, setIsLogged, isImpressionate, setIsImpressionate }}>
+
+                        <Layout style={{ minHeight: "100vh" }}>
+                            <Sider>
+                                <div className="logo">
+                                    <img src={logo} />
                                 </div>
-                            </Content>
-                            <Footer style={{ textAlign: "center" }}>
-                                ©2022 - 3PROJ - SUPIDRIVE - SUPINFO PROJECT
-                            </Footer>
+                                <Menu id="menu" theme="dark" defaultSelectedKeys={[""]} mode="inline">
+                                    <Menu.Item key="1" icon={<HomeOutlined />}>
+                                        <Link to="/">Home</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="2" icon={<UserOutlined />}>
+                                        <Link to="/users">Users</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="3" icon={<InfoCircleOutlined />}>
+                                        <Link to="/allInformation">All Information</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="4" icon={<UserOutlined />}>
+                                        <Link to="/profile">Profil</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="5" icon={<LogoutOutlined />}>
+                                        <Link to="/logout">Logout</Link>
+                                    </Menu.Item>
+                                </Menu>
+                            </Sider>
+                            <Layout className="site-layout">
+                                <Header className="site-layout-background" style={{ padding: 0, textAlign: "center" }}>
+                                    <h1 style={{ fontWeight: 900 }}>SupIdrive</h1>
+                                </Header>
+                                <Content style={{ margin: "0 16px" }}>
+                                    <div className="site-layout-background" style={{ padding: 24, minHeight: "75vh", margin: "16px 0" }}>
+                                        <Outlet />
+                                    </div>
+                                </Content>
+                                <Footer style={{ textAlign: "center" }}>
+                                    ©2022 - 3PROJ - SUPIDRIVE - SUPINFO PROJECT
+                                </Footer>
+                            </Layout>
                         </Layout>
-                    </Layout>
+                    </UserContext.Provider>
                 </div>
             );
         } else {
             return (
                 <div>
-                    <Layout style={{ minHeight: "100vh" }}>
-                        <Sider>
-                            <div className="logo">
-                                <img src={logo} />
-                            </div>
-                            <Menu id="menu" theme="dark" defaultSelectedKeys={[""]} mode="inline">
-                                <Menu.Item key="1" icon={<HomeOutlined />}>
-                                    <Link to="/">Home</Link>
-                                </Menu.Item>
-                                <Menu.Item key="2" icon={<InfoCircleOutlined />}>
-                                    <Link to="/aboutUs">About us</Link>
-                                </Menu.Item>
-                                <Menu.Item key="3" icon={<FileOutlined />}>
-                                    <Link to="/myDrive">My Drive</Link>
-                                </Menu.Item>
-                                <Menu.Item key="4" icon={<UserOutlined />}>
-                                    <Link to="/profile">Profil</Link>
-                                </Menu.Item>
-                                <Menu.Item key="5" icon={<LogoutOutlined />}>
-                                    <Link to="/logout">Logout</Link>
-                                </Menu.Item>
-                            </Menu>
-                        </Sider>
-                        <Layout className="site-layout">
-                            <Header className="site-layout-background" style={{ padding: 0, textAlign: "center" }}>
-                                <h1 style={{ fontWeight: 900 }}>SupIdrive</h1>
-                            </Header>
-                            <Content style={{ margin: "0 16px" }}>
-                                <div className="site-layout-background" style={{ padding: 24, minHeight: "75vh", margin: "16px 0" }}>
-                                    <Outlet />
+                    <UserContext.Provider value={{ isAdmin, setIsAdmin, isLogged, setIsLogged, isImpressionate, setIsImpressionate }}>
+
+                        <Layout style={{ minHeight: "100vh" }}>
+                            <Sider>
+                                <div className="logo">
+                                    <img src={logo} />
                                 </div>
-                            </Content>
-                            <Footer style={{ textAlign: "center" }}>
-                                ©2022 - 3PROJ - SUPIDRIVE - SUPINFO PROJECT
-                            </Footer>
+                                <Menu id="menu" theme="dark" defaultSelectedKeys={[""]} mode="inline">
+                                    <Menu.Item key="1" icon={<HomeOutlined />}>
+                                        <Link to="/">Home</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="2" icon={<InfoCircleOutlined />}>
+                                        <Link to="/aboutUs">About us</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="3" icon={<FileOutlined />}>
+                                        <Link to="/myDrive">My Drive</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="4" icon={<UserOutlined />}>
+                                        <Link to="/profile">Profil</Link>
+                                    </Menu.Item>
+                                    <Menu.Item key="5" icon={<LogoutOutlined />}>
+                                        <Link to="/logout">Logout</Link>
+                                    </Menu.Item>
+                                </Menu>
+                            </Sider>
+                            <Layout className="site-layout">
+                                <Header className="site-layout-background" style={{ padding: 0, textAlign: "center" }}>
+                                    <h1 style={{ fontWeight: 900 }}>SupIdrive</h1>
+                                </Header>
+                                <Content style={{ margin: "0 16px" }}>
+                                    <div className="site-layout-background" style={{ padding: 24, minHeight: "75vh", margin: "16px 0" }}>
+                                        <Outlet />
+                                    </div>
+                                </Content>
+                                <Footer style={{ textAlign: "center" }}>
+                                    ©2022 - 3PROJ - SUPIDRIVE - SUPINFO PROJECT
+                                </Footer>
+                            </Layout>
                         </Layout>
-                    </Layout>
+                    </UserContext.Provider>
                 </div>
             );
         }
     } else {
         return (
             <div>
-                <Layout style={{ minHeight: "100vh" }}>
-                    <Sider>
-                        <div className="logo">
-                            <img src={logo} />
-                        </div>
-                        <Menu id="menu" theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-                            <Menu.Item key="1" icon={<HomeOutlined />}>
-                                <Link to="/">Home</Link>
-                            </Menu.Item>
-                            <Menu.Item key="2" icon={<InfoCircleOutlined />}>
-                                <Link to="/aboutUs">About us</Link>
-                            </Menu.Item>
-                            <Menu.Item key="3" icon={<LoginOutlined />}>
-                                <Link to="/login">Login</Link>
-                            </Menu.Item>
-                            <Menu.Item key="4" icon={<UsergroupAddOutlined />}>
-                                <Link to="/register">Register</Link>
-                            </Menu.Item>
-                        </Menu>
-                    </Sider>
-                    <Layout className="site-layout">
-                        <Header className="site-layout-background" style={{ padding: 0, textAlign: "center" }}>
-                            <h1 style={{ fontWeight: 900 }}>SupIdrive</h1>
-                        </Header>
-                        <Content style={{ margin: "0 16px" }}>
-                            <div className="site-layout-background" style={{ padding: 24, minHeight: "75vh", margin: "16px 0" }}>
-                                <Outlet />
+                <UserContext.Provider value={{ isAdmin, setIsAdmin, isLogged, setIsLogged, isImpressionate, setIsImpressionate }}>
+
+                    <Layout style={{ minHeight: "100vh" }}>
+                        <Sider>
+                            <div className="logo">
+                                <img src={logo} />
                             </div>
-                        </Content>
-                        <Footer style={{ textAlign: "center" }}>
-                            ©2022 - 3PROJ - SUPIDRIVE - SUPINFO PROJECT
-                        </Footer>
+                            <Menu id="menu" theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+                                <Menu.Item key="1" icon={<HomeOutlined />}>
+                                    <Link to="/">Home</Link>
+                                </Menu.Item>
+                                <Menu.Item key="2" icon={<InfoCircleOutlined />}>
+                                    <Link to="/aboutUs">About us</Link>
+                                </Menu.Item>
+                                <Menu.Item key="3" icon={<LoginOutlined />}>
+                                    <Link to="/login">Login</Link>
+                                </Menu.Item>
+                                <Menu.Item key="4" icon={<UsergroupAddOutlined />}>
+                                    <Link to="/register">Register</Link>
+                                </Menu.Item>
+                            </Menu>
+                        </Sider>
+                        <Layout className="site-layout">
+                            <Header className="site-layout-background" style={{ padding: 0, textAlign: "center" }}>
+                                <h1 style={{ fontWeight: 900 }}>SupIdrive</h1>
+                            </Header>
+                            <Content style={{ margin: "0 16px" }}>
+                                <div className="site-layout-background" style={{ padding: 24, minHeight: "75vh", margin: "16px 0" }}>
+                                    <Outlet />
+                                </div>
+                            </Content>
+                            <Footer style={{ textAlign: "center" }}>
+                                ©2022 - 3PROJ - SUPIDRIVE - SUPINFO PROJECT
+                            </Footer>
+                        </Layout>
                     </Layout>
-                </Layout>
+                </UserContext.Provider>
             </div>
         );
     }

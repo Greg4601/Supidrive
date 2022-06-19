@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { getUser, getAllUsers, blockUser, deleteUser, getUserFileCount } from '../api/getAPI'
+import React, { useContext, useEffect, useState } from 'react'
+import { loginFetch, getUser, getAllUsers, blockUser, deleteUser, getUserFileCount } from '../api/getAPI'
 import { SearchOutlined, DeleteFilled, EyeOutlined, CloseOutlined, CheckOutlined } from '@ant-design/icons';
 import { Table, Input, Button } from 'antd'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from '../contexts/AuthContext';
 
 
-export default function MyDriveList() {
+export default function UsersList() {
   const [usersList, setUsersList] = useState([])
   const [userFileCount, setUserFileCount] = useState()
   const [loading, setLoading] = useState(false)
+
+  const navigate = useNavigate()
+
+  const { isLogged, setIsLogged, isAdmin, setIsAdmin, isImpressionate, setIsImpressionate } = useContext(UserContext)
 
   useEffect(() => {
     getAllUsers(setUsersList)
@@ -33,7 +38,26 @@ export default function MyDriveList() {
     window.location.reload()
   }
 
-  console.log(usersList)
+  const onImpersonate = async (item) => {
+    const user = usersList.filter(user => user._id === item)[0]
+    console.log(user.name, user.email, "supinfo")
+    // console.log(user)
+    const Admintoken = localStorage.getItem('token')
+    localStorage.setItem('adminToken', Admintoken)
+    const response = await loginFetch(user.name, user.email, "dd")
+    if (response.status === 200) {
+      const token = await response.json()
+      localStorage.setItem('token', token.accessToken)
+      setIsLogged(true)
+      setIsAdmin(false)
+      setIsImpressionate(true)
+      navigate('/myDrive')
+    } else {
+      setIsLogged(false)
+    }
+  }
+
+  // console.log(usersList)
 
   const columns = [
 
@@ -105,7 +129,8 @@ export default function MyDriveList() {
       title: 'Impersonate',
       dataIndex: '_id',
       width: '5%',
-      render: text => <Link to={"/userDetails/" + text}><EyeOutlined style={{ color: 'green' }} /></Link>,
+      render: item => <EyeOutlined onClick={(e) => onImpersonate(item)} />
+      // render: text => <Link to={"/userDetails/" + text}><EyeOutlined style={{ color: 'green' }} /></Link>,
     },
     {
       title: 'Is Blocked?',
