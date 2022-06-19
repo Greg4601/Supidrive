@@ -16,6 +16,7 @@ export default function UploadItem() {
         const formData = new FormData();
 
         formData.append('input_file', selectedFile);
+
         await uploadFile(formData)
         window.location.reload()
     }

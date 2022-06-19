@@ -19,9 +19,9 @@ export default function MyDriveList() {
         })
     }
 
-    const onEditNameItem = (item) => {
-        console.log('TODO:')
-    }
+    // const onEditNameItem = (item) => {
+    //     console.log('TODO:')
+    // }
 
     const onDownloadNameItem = (item) => {
         downloadFile(item)
@@ -57,7 +57,7 @@ export default function MyDriveList() {
             dataIndex: 'uploadDate',
             width: '20%',
             sorter: (a, b) => new Date(b.date) - new Date(a.date),
-            render: cts => <p>{moment(cts).format('MMMM do YYYY [at] HH:mm [UTC]')}</p>
+            render: cts => <p>{moment(cts).format('MMMM DD YYYY [at] HH:mm [UTC]')}</p>
         },
         {
             title: 'Length',
@@ -72,17 +72,17 @@ export default function MyDriveList() {
             render: item => <DownloadOutlined onClick={(e) => onDownloadNameItem(item)} />
         },
         {
-            title: 'View',
+            title: 'Preview',
             dataIndex: '_id',
             width: '5%',
-            render: text => <EyeOutlined style={{ color: 'green' }} onClick={(e) => onEditNameItem(text)} />
+            render: text => <EyeOutlined style={{ color: 'green' }} onClick={(e) => console.log("PREVIEW")} />
         },
-        {
-            title: 'Edit',
-            dataIndex: 'edit',
-            width: '5%',
-            render: item => <EditFilled onClick={(e) => onEditNameItem(item)} />
-        },
+        // {
+        //     title: 'Edit',
+        //     dataIndex: 'edit',
+        //     width: '5%',
+        //     render: item => <EditFilled onClick={(e) => onEditNameItem(item)} />
+        // },
         {
             title: 'Delete',
             dataIndex: '_id',

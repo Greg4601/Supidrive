@@ -102,7 +102,7 @@ export default function MyDriveList() {
       render: text => text ? <CheckOutlined style={{ color: 'green' }} /> : <CloseOutlined style={{ color: 'red' }} />,
     },
     {
-      title: 'View',
+      title: 'Impersonate',
       dataIndex: '_id',
       width: '5%',
       render: text => <Link to={"/userDetails/" + text}><EyeOutlined style={{ color: 'green' }} /></Link>,
