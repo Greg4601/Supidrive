@@ -121,12 +121,37 @@ exports.deleteSelfUser = async (req, res) => {
   }
 };
 
+// exports.deleteUserById = async (req, res) => {
+//   const id = req.params.id;
+//   const userInDb = await Userdb.findById(id);
+//   userJWT = req.user;
+
+//   if (userJWT.is_admin && userJWT._id != id) {
+//     return res
+//       .status(401)
+//       .send({ message: "Not authorized to delete other user" });
+//   }
+//   Userdb.deleteOne({ _id: id })
+//     .then((user) => {
+//       if (!user) {
+//         res
+//           .status(404)
+//           .send({ message: "Cannot delete user, Id may be wrong" });
+//       } else {
+//         res.send({ message: "User was deleted successfuly" });
+//       }
+//     })
+//     .catch((err) => {
+//       res
+//         .status(500)
+//         .send({ message: "Internal error, could not delet user. " + err });
+//     });
+// };
 exports.deleteUserById = async (req, res) => {
   const id = req.params.id;
   const userInDb = await Userdb.findById(id);
   userJWT = req.user;
-
-  if (userJWT.is_admin && userJWT._id != id) {
+  if (!userJWT.isAdmin) {
     return res
       .status(401)
       .send({ message: "Not authorized to delete other user" });
@@ -144,6 +169,6 @@ exports.deleteUserById = async (req, res) => {
     .catch((err) => {
       res
         .status(500)
-        .send({ message: "Internal error, could not delet user. " + err });
+        .send({ message: "Internal error, could not delete user. " + err });
     });
 };
